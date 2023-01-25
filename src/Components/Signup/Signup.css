@@ -1,0 +1,83 @@
+.Auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+  }
+  
+  .Auth > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* left side */
+  .a-left{
+      gap: 2rem;
+  }
+  .a-right{
+    align-items: center;
+    justify-content: center;
+}
+  
+  .a-left > img {
+    width: 7rem;
+    height: 7rem;
+  }
+  
+  .Webname > h1 {
+      font-size: 3rem;
+      background-color: red;
+    
+      /* Create the gradient. */
+      background-image: var(--buttonBg);
+      
+      /* Set the background size and repeat properties. */
+      background-size: 100%;
+      background-repeat: repeat;
+    
+      /* Use the text as a mask for the background. */
+      /* This will show the gradient as a text color rather than element bg. */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; 
+      -moz-background-clip: text;
+      -moz-text-fill-color: transparent;
+  }
+  
+  .Webname>h6{
+      font-size: 1rem;
+  }
+  
+  .logout-button{
+    width: 30%;
+    height: 2rem;
+    margin-top: 2rem;
+    align-self: flex-start;
+}
+  
+  
+  /* right side */
+  
+  .authForm{
+      background-color: var(--cardColor);
+      border-radius: 1rem;
+      padding: 1rem;
+  }
+  
+  .authForm>div{
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .linkword{
+    font-size: x-small;
+    color: rgb(96, 96, 239) ;
+    justify-content: center;
+  }
+
+  .linkword:hover{
+    color: rgb(128, 128, 242);
+    cursor: pointer;
+  }

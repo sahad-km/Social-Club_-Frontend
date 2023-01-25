@@ -1,0 +1,26 @@
+
+.conversation{
+    margin-top: 0.7em;
+    width: 97%;
+    height: 77vh;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 1em;
+}
+
+.online-dot {
+    background-color: rgb(127, 205, 10);
+    border-radius: 50%;
+    position: absolute;
+    left: 3rem;
+    width: 0.8rem;
+    height: 0.8rem;
+}
+
+.onlineStatus{
+    color: #51e200;
+}
+
+.offlineStatus{
+    color: rgb(220, 220, 220);
+}

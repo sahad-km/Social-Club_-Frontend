@@ -1,0 +1,17 @@
+.explore-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 16px;
+    width: 100%;
+  }
+  
+  .posts-grid img {
+    width: 100%;
+  }
+  

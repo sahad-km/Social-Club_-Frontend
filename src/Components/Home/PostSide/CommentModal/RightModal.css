@@ -1,0 +1,63 @@
+.commentCard{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.commentCard>div{
+    display: flex;
+    gap: 10px;
+}
+
+
+.commentsBy{
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+}
+
+.nameofComment{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.nameofComment>span:nth-of-type(1){
+    font-weight: 800;
+    font-size: x-small;
+}
+
+.nameofComment>span:nth-of-type(3){
+    font-weight: lighter;
+    font-size: xx-small;
+}
+
+
+.nameofComment>span:nth-of-type(2){
+    font-weight: normal;
+    font-size: x-small;
+}
+
+
+.fc-button{
+    height: 2rem;
+    width: 35%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.UnfollowButton{
+    color: var(--orange);
+    border: 2px solid var(--orange);
+    cursor: pointer;
+    background: transparent;
+}
+
+
+.FollowersCard>span{
+    font-weight: bold;
+    color: orange;
+    align-self: center;
+    cursor: pointer;
+}

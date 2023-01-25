@@ -1,0 +1,128 @@
+.ChatBox-container {
+  background: white;
+  border-radius: 1rem;
+  display: grid;
+  grid-template-rows: 14vh 50vh 13vh;
+}
+
+.chat-header {
+  padding: 1rem 1rem 0rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.dark-mode-inner {
+  background-color: #1a1919;
+  transition: background-color 0.25s ease-in-out;
+}
+.light-mode-inner {
+  background-color: white;
+  transition: background-color 0.25s ease-in-out;
+}
+
+.chat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  overflow: scroll;
+}
+.chat-body::-webkit-scrollbar {
+  display: none;
+}
+
+.message {
+  background: orange;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 1rem 1rem 1rem 0;
+  max-width: 28rem;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.date {
+  font-size: 0.7rem;
+  color: rgb(220, 220, 220);
+  align-self: end;
+}
+
+.videoCall_icon {
+  font-size: 1.5em;
+  margin-right: 2em;
+}
+
+.own {
+  align-self: flex-end;
+  border-radius: 1rem 1rem 0 1rem;
+  color: white;
+  background: #358ff9;
+  padding: 0.5rem;
+  max-width: 28rem;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.date {
+  font-size: 0.7rem;
+  color: rgb(220, 220, 220);
+  align-self: end;
+}
+
+.sendIcon {
+  margin-right: 0.8em;
+  font-size: 1.5em;
+  font-weight: lighter;
+}
+.sendIcon:hover {
+  cursor: pointer;
+}
+.chat-sender {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  height: 3.5rem;
+  align-items: center;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  align-self: end;
+}
+.chat-sender > input {
+  height: 70%;
+  background-color: rgb(236, 236, 236);
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  padding: 0px 15px 0px 15px;
+}
+.chat-sender > div:nth-of-type(1) {
+  background: rgb(233, 233, 233);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+.chat-sender > div {
+  height: 70%;
+  padding: 0px 15px 0px 15px;
+}
+
+.ChatBox-container {
+  position: relative;
+}
+.chatbox-empty-message {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1em;
+}
+

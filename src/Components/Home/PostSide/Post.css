@@ -1,0 +1,40 @@
+.postPic{
+    width:100%;
+    height:300px;
+}
+.Post
+{
+    margin-top: 0.7em;
+    /* margin: 1em; */
+    /* margin-left: 2em; */
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 1rem;
+}
+
+.dark-mode-inner{
+    background-color: #1a1919;
+    transition: background-color 0.25s ease-in-out;
+  }
+  .light-mode-inner{
+    background-color: white;
+    transition: background-color 0.25s ease-in-out;
+  }
+
+.Post>img{
+    width: 100%;
+    max-height: 20rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.postReact{
+   margin-top: 0.5em;
+   margin-bottom: 0.4em;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    font-size: larger;
+}
