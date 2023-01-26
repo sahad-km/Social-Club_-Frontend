@@ -18,6 +18,7 @@ code {
   color: #fff;
   /* height: 100%; */
   transition: background-color 0.25s ease-in-out;
+  min-height: 100vh;
 }
 
 .light-mode {
@@ -25,4 +26,5 @@ code {
   color: #333;
   /* height: 100%; */
   transition: background-color 0.25s ease-in-out;
+  min-height: 100vh;
 }

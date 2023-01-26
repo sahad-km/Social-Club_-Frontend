@@ -4,11 +4,12 @@ import altProfile from '../../../Img/man-157699.png'
 import { useSelector } from 'react-redux'
 import './Center.css'
 import Posts from '../../Home/PostSide/AllPosts/Posts'
+import Loader from '../../Loader/Loader'
 
 function Center({data}) {
   const isDarkMode = useSelector((state) => state.isDarkMode);
 console.log("first,sec",data)
-if(!data) return <h3>Loading....</h3>
+if(!data) return <Loader/>
   return (
     <div className='col-md-6 mainDiv'>
     <div className={`ProfileCard ${isDarkMode ? 'dark-mode-inner' : 'light-mode-inner'}`}>

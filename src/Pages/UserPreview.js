@@ -4,10 +4,12 @@ import Center from "../Components/UserPreview/Center/Center";
 import RightSide from "../Components/UserPreview/RigthSide/RightSide";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function UserPreviewPage() {
   const token = useSelector((state) => state.token.token);
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
   let { id } = useParams();
   console.log("Idey...", id);
   useEffect(() => {
@@ -20,11 +22,14 @@ function UserPreviewPage() {
     })
       .then((response) => response.json())
       .then((json) => {
+        if(json.err){
+          navigate('/pageNotFound');
+        }else{
         setData(json.details);
-        // const postCount = json.postCount;
-        console.log("datahe...",json.details);
-      });
+        }
+      })
   }, [id]);
+
   return (
     <div className="row" style={{minHeight:'100vh'}} >
       <UserPreview data={data} />

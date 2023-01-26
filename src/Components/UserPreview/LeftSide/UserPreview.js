@@ -2,6 +2,7 @@ import React from 'react'
 import SearchBar from '../../Home/SearchBar/SearchBar'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../Loader/Loader';
 
 function UserPreview({data}) {
   const isDarkMode = useSelector((state) => state.isDarkMode);
@@ -33,7 +34,7 @@ function UserPreview({data}) {
     }
   }
 
-  if(!data) return <h3>Loading....</h3>
+  if(!data) return <Loader/>
   return (
     <div className='col-md-3'>
     <SearchBar/>

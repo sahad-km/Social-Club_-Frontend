@@ -4,13 +4,14 @@ import { useSelector } from "react-redux";
 import UserSlip from "../../Home/LeftSide/PeopleList/PeopleModal/UserSlip/UserSlip";
 import "./FriendsList.css";
 import { Pagination, Modal } from "react-bootstrap";
+import Loader from "../../Loader/Loader";
 
 function FriendsList({ data }) {
   const isDarkMode = useSelector((state) => state.isDarkMode);
   const [activePage, setActivePage] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const { user } = useSelector((state) => state.user);
-  if(!data) return <h3>Loading...</h3>
+  if(!data) return <Loader/>
   const pageSize = 1; // number of items per page
   const pages = Math.ceil(data.followingFriends.length / pageSize);
 

@@ -10,6 +10,8 @@ import Chat from './Pages/Chat';
 import UserPreview from './Pages/UserPreview';
 import ExplorePage from './Pages/Explore';
 import VideoCallPage from './Pages/VideoCall';
+import NotFoundPage from './Pages/NotFoundPage';
+import SinglePostPage from './Pages/SinglePostPage';
 
 
 function App() {
@@ -23,12 +25,14 @@ function App() {
           <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
           <Route path="/login" element={user ? <Navigate to="/" /> : <LoginPage />} />
           <Route path="/profile/:id" element={user ? <Profile /> : <Navigate to="/login" />} />
-          <Route path="*" element={<main style={{ padding: "1rem" }}><p>There's nothing here!</p></main>} />
           <Route path="/chat" element={user ? <Chat /> : <Navigate to="/login" />} />
           <Route path="/signup" element={user ? <Navigate to="/" /> : <SignupPage />} />
           <Route path="/user/:id" element={user ? <UserPreview /> : <Navigate to="/login" />} />
           <Route path="/explore" element={user ? <ExplorePage /> : <Navigate to="/login" />} />
           <Route path="/video_call/:id" element={user ? <VideoCallPage /> : <Navigate to="/login" />} />
+          <Route path="/pageNotFound" element={user ? <NotFoundPage/> : <Navigate to="/login"/>} />
+          <Route path="/single_post/:id" element={<SinglePostPage/>} />
+          <Route path="*" element={<NotFoundPage/>}/>
         </Routes>
       </BrowserRouter>
    </div>
