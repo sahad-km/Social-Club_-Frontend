@@ -38,8 +38,7 @@ function ForgotModal({ open, onClose }) {
         alert("Please provide Email first");
         return
     }
-    console.log("Hi alll....")
-    const response = await fetch("http://localhost:8000/register/forgot/otp", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/register/forgot/otp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,8 +57,7 @@ function ForgotModal({ open, onClose }) {
 
   async function verifyOtp(e) {
     e.preventDefault();
-    console.log('hi')
-    const response = await fetch("http://localhost:8000/register/forgot/otp/verify", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/register/forgot/otp/verify`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +69,6 @@ function ForgotModal({ open, onClose }) {
     });
     const data = await response.json();
     if (data.status === "success") {
-      console.log("OK all");
       setHide(true)
      
     } else if (data.status === "fail") {

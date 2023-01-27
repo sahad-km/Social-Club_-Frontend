@@ -18,7 +18,7 @@ function Explore() {
       });
     });
 
-    fetch(`http://localhost:8000/post/all_post${user._id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/post/all_post${user._id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,6 @@ function Explore() {
       .then((response) => response.json())
       .then((json) => {
         setPosts(json.details);
-        console.log(json.details,"mmmmmmmm")
         json.details.forEach((post) => {
           const img = document.getElementById(post.id);
           observer.observe(img);

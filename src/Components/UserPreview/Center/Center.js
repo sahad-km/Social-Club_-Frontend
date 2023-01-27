@@ -8,7 +8,6 @@ import Loader from '../../Loader/Loader'
 
 function Center({data}) {
   const isDarkMode = useSelector((state) => state.isDarkMode);
-console.log("first,sec",data)
 if(!data) return <Loader/>
   return (
     <div className='col-md-6 mainDiv'>

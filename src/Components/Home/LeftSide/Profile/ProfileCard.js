@@ -21,8 +21,7 @@ function ProfileCard() {
     if (token) {
       const decodedToken = jwtDecode(token);
       const id = decodedToken.userId;
-      console.log("idey...",id);
-      fetch(`http://localhost:8000/dashboard/${id}`, {
+      fetch(`${process.env.REACT_APP_BACKEND}/dashboard/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

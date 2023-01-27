@@ -3,6 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import Loader from '../Loader/Loader'
 import Logo from "../../Social Club Logo.png";
 import "./Signup.css";
+import { toast } from "react-toastify";
+
+const toastConfig = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 
 function Signup() {
   const navigate = useNavigate();
@@ -42,7 +54,7 @@ function Signup() {
   async function registerUser(e) {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch("http://localhost:8000/register/verifyotp", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/register/verifyotp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,8 +66,7 @@ function Signup() {
     });
     const data = await response.json();
     if (data.status === "success") {
-      console.log("OK all");
-      const response = await fetch("http://localhost:8000/register/signup", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/register/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,12 +80,13 @@ function Signup() {
       const data = await response.json();
       setLoading(false);
       if (data.status === "ok") {
+        toast.success("Successfully Registered", toastConfig);
         navigate("/login");
       } else if (data.status === "fail") {
-        alert("You are failed to register! Try with another Email");
+        toast.error("Nope ! Try with another Email", toastConfig);
       }
     } else if (data.status === "fail") {
-      alert("You are failed to register! Try with another Email");
+      toast.error("Nope ! Try with another Email", toastConfig);
     }
   }
   async function verifyAccount(e) {
@@ -84,15 +96,19 @@ function Signup() {
       userName.trim() === "" ||
       password.trim() === ""
     ) {
-      alert("Please provide details first");
+      toast.error("Please provide details first", toastConfig);
+      return;
+    }
+    if (password.length < 5 || password.length > 15) {
+      toast.error("Password must be with in 5 to 15 letters", toastConfig);
       return;
     }
     if (password !== repassword) {
-      alert("Entered passwords are mismatched");
+      toast.error("Passwords are mismatched", toastConfig);
       return;
     }
     setLoading(true)
-    const response = await fetch("http://localhost:8000/register/otpsend", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/register/otpsend`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -104,16 +120,17 @@ function Signup() {
     const data = await response.json();
     setLoading(false);
     if (data.status === "sended") {
+      toast.success("An OTP sended, Check it..", toastConfig)
       setIsActive(true);
       setMinutes(1);
       setSeconds(30);
     }else{
-      alert("Try with another Email")
+      toast.error("Try with another Email", toastConfig);
     }
   }
 
   // function resendOtp() {
-  //   fetch("http://localhost:8000/register/otpsend", {
+  //   fetch(`${process.env.REACT_APP_BACKEND}/register/otpsend`, {
   //     method: "POST",
   //     headers: {
   //       "Content-Type": "application/json",

@@ -23,8 +23,7 @@ function SinglePost() {
 
   //Fetching post data 
   useEffect(()=>{
-    console.log("anything happen")
-    fetch(`http://localhost:8000/post/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/post/${id}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -33,19 +32,17 @@ function SinglePost() {
     })
     .then((response) => response.json())
     .then((json) => {
-        console.log("respo",json);
         if(json.err){
             navigate('/login');
         }else{
             setData(json.post[0]);
-            console.log("haymma hayamma",data)
         }
     })
   },[id])
 
   //Fetching user Details
   useEffect(() => {
-    fetch(`http://localhost:8000/dashboard/${data && data.userId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/dashboard/${data && data.userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +57,7 @@ function SinglePost() {
 
   //Fetching all comment of this post
   useEffect(()=> {
-    fetch(`http://localhost:8000/post/comments/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/post/comments/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +71,7 @@ function SinglePost() {
   },[comment])
 
   const Submit = () => {
-    fetch(`http://localhost:8000/post/add_comment/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/post/add_comment/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -95,7 +92,7 @@ function SinglePost() {
   const handleLike = (e, postId) => {
     e.preventDefault();
     if (data && user) {
-      fetch(`http://localhost:8000/post/like_unlike/${postId}`, {
+      fetch(`${process.env.REACT_APP_BACKEND}/post/like_unlike/${postId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -12,12 +12,13 @@ import ExplorePage from './Pages/Explore';
 import VideoCallPage from './Pages/VideoCall';
 import NotFoundPage from './Pages/NotFoundPage';
 import SinglePostPage from './Pages/SinglePostPage';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
   const isDarkMode = useSelector((state) => state.isDarkMode);
   const { user } = useSelector((state) => state.user);
-  console.log("user undo monusee..",user)
   return (
     <div className={isDarkMode ? 'dark-mode container-fluid ' : 'light-mode container-fluid '}>
      <BrowserRouter>
@@ -35,6 +36,7 @@ function App() {
           <Route path="*" element={<NotFoundPage/>}/>
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
    </div>
   );
 }

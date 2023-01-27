@@ -42,7 +42,7 @@ function ProfileCard() {
         </div>
         <div className="vl"></div>
         <div className="follow">
-          <span>{user.postCount}</span>
+          <span>{user.postCount ? user.postCount : 0}</span>
           <span>Posts</span>
         </div>
       </div>

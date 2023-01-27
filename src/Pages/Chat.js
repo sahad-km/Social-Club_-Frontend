@@ -37,7 +37,7 @@ function Chat() {
    //Get chats in the chat section
    useEffect(()=>{
     const getAllChats =async()=> {
-      fetch(`http://localhost:8000/chat/${user._id}`, {
+      fetch(`${process.env.REACT_APP_BACKEND}/chat/${user._id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -54,8 +54,7 @@ function Chat() {
 
   //Connecting to the socket io
   useEffect(()=>{
-    socket.current = io('ws://localhost:8008');
-    console.log("low fps",user._id)
+    socket.current = io(process.env.REACT_APP_SOCKET);
     socket.current.emit("new-user-add", user._id)
     socket.current.on("get-users", (users)=> {
       setOnlineUsers(users)
@@ -70,7 +69,6 @@ function Chat() {
       })
 	    socket.current.on("me", (id) => {
 			setMe(id)
-      console.log("entho id",me)
 		})
 
 		socket.current.on("callUser", (data) => {
@@ -83,7 +81,6 @@ function Chat() {
 
   // Call a user
   const callUser = (id) => {
-    console.log("Call vanno...")
 		const peer = new Peer({
 			initiator: true,
 			trickle: false,
@@ -134,7 +131,6 @@ function Chat() {
   //Sending messages to socket server
   useEffect(()=>{
     if(sendMessage!==null){
-      console.log(sendMessage)
       socket.current.emit('send-message', sendMessage)
     }
   },[sendMessage])
@@ -142,7 +138,6 @@ function Chat() {
   //Receiving message from socket server
   useEffect(()=>{
     socket.current.on("receive-message", (data) => {
-      console.log("messageKitti",data)
       setReceiveMessage(data)
     })
   },[])
@@ -154,7 +149,6 @@ function Chat() {
     const online = onlineUsers.find((user) => user.userId === chatMember);
     return online ? true : false;
   };
-  console.log("engane shareef id",currentChat)
   return (
     <div className="row" style={{height:'100%'}}>
 

@@ -2,8 +2,20 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSelector,useDispatch } from "react-redux";
 import { setUser } from "../../../../redux/actions/userAction";
-import Logo from "../../../../Img/man-157699.png";
+import Logo from "../../../../Img/man-157699.png"; 
 import './EditModal.css'
+import { toast } from "react-toastify";
+
+const toastConfig = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 
 const Register_style = {
   position: "fixed",
@@ -44,31 +56,29 @@ function EditModal({ open, onClose }) {
     e.preventDefault();
     const data = new FormData()
     data.append('file',profileImage)
-    data.append("upload_preset",'wj1iznqd')
-    data.append("cloud_name",'dupfwiwnp')
+    data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
+    data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_UPLOAD_NAME)
   
-    fetch(" https://api.cloudinary.com/v1_1/dupfwiwnp/image/upload",
+    fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_UPLOAD_NAME}/image/upload`,
     {
       method:'post',
       body:data
     })
     .then(res => res.json())
     .then(response => {
-      console.log(response.url)
       const profileUrl = response.url
       const data = new FormData()
       data.append('file',coverImage)
-      data.append("upload_preset",'wj1iznqd')
-      data.append("cloud_name",'dupfwiwnp')
+      data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET)
+      data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_UPLOAD_NAME)
   
-      fetch(" https://api.cloudinary.com/v1_1/dupfwiwnp/image/upload",
+      fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_UPLOAD_NAME}/image/upload`,
       {
       method:'post',
       body:data
       })
       .then(res => res.json())
       .then(data => {
-      console.log(data.url)
       const coverUrl = data.url
       updateUser(profileUrl,coverUrl)
       })
@@ -77,7 +87,7 @@ function EditModal({ open, onClose }) {
   }
 
   const updateUser = (profileUrl,coverUrl) => {
-    fetch('http://localhost:8000/register/insert_details' ,{  
+    fetch(`${process.env.REACT_APP_BACKEND}/register/insert_details` ,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -99,7 +109,7 @@ function EditModal({ open, onClose }) {
     .then(data => {
       dispatch(setUser(data.details));
       onClose();
-      console.log("Uploaded successfully")
+      toast.success("Profile Updated successfully", toastConfig);
     })
   }
 

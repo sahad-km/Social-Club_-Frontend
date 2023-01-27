@@ -22,7 +22,7 @@ function PeopleKnow() {
     if (user) {
       const id = user._id;
       setLoading(true);
-      fetch(`http://localhost:8000/dashboard/all_users/${id}`, {
+      fetch(`${process.env.REACT_APP_BACKEND}/dashboard/all_users/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

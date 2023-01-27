@@ -15,7 +15,7 @@ function UserSlip({data}) {
     const followFunction = (e) => {
         e.preventDefault();
         setFollowing((prev) => !prev);
-        fetch(`http://localhost:8000/dashboard/follow/${data._id}`, {
+        fetch(`${process.env.REACT_APP_BACKEND}/dashboard/follow/${data._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +29,6 @@ function UserSlip({data}) {
         .then((json) => {
           if(json.status == 'follow'){
             dispatch(followUser(json.id))
-            console.log("success");
           }else{
             dispatch(unFollowUser(json.id))
           }

@@ -7,7 +7,6 @@ import { setUser } from "../../../redux/actions/userAction";
 function TrendingPeople() {
   const dispatch = useDispatch();
   // useEffect(()=>{
-  //   console.log('hida]eas')
   //   const token = localStorage.getItem('token');
   //   if(token){
   //     const decodedToken = jwtDecode(token);
@@ -15,14 +14,13 @@ function TrendingPeople() {
   //    fetchDetails(id);
   //   }
   //   async function fetchDetails(id){
-  //     const response = await fetch(`http://localhost:8000/dashboard/${id}`,{
+  //     const response = await fetch(`${process.env.REACT_APP_BACKEND}/dashboard/${id}`,{
   //       method: 'GET',
   //       headers: {
   //         "Content-Type": "application/json",
   //       },
   //     });
   //     const data = await response.json();
-  //     console.log('chu chai',data)
   //     dispatch(setUser(data.details));
   //   }
   // })

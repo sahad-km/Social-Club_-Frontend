@@ -5,6 +5,18 @@ import Logo from '../../Social Club Logo.png'
 import ForgotModal from './ForgotModal/ForgotModal';
 import { setToken, setUser} from '../../redux/actions/userAction';
 import './Login.css'
+import { toast } from "react-toastify";
+
+const toastConfig = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 
 function Login() {
   const navigate = useNavigate();
@@ -16,14 +28,18 @@ function Login() {
   async function loginUser(e) {
     e.preventDefault();
     if(email.trim() === ""){
-        alert("Please provide Email first");
+        toast.error("Please provide Email first", toastConfig);
         return
     }
+    if(password.length < 5 || password.length > 15){
+      toast.error("Invalid password", toastConfig);
+      return
+    }
     if(password.trim() === ""){
-        alert("Enter password");
+        toast.error("Enter password", toastConfig);
         return;
     }
-    const response = await fetch("http://localhost:8000/login", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,11 +51,15 @@ function Login() {
     });
     const data = await response.json();
     if(data.user){
+      toast.success("Successfully Logged In", toastConfig)
       localStorage.setItem('token',data.user);
       dispatch(setToken(data.user));
-      console.log(data.details)
       dispatch(setUser(data.details));
       navigate('/');
+  }else if(data.status === 'wrong'){
+    toast.error("Incorrected Email or password", toastConfig)
+  }else{
+    toast.error("No account with this Email", toastConfig);
   }
   }
 

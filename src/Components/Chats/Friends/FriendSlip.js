@@ -14,7 +14,7 @@ function FriendSlip({ data, currentUser, online }) {
   const userId = data.members.find((id) => id !== currentUser);
     const getUserData = async () => {
       try {
-        fetch(`http://localhost:8000/dashboard/${userId}`,{
+        fetch(`${process.env.REACT_APP_BACKEND}/dashboard/${userId}`,{
           method: "GET",
           headers: {
             "Content-Type": "application/json",

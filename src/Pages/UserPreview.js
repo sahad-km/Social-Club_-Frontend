@@ -11,9 +11,8 @@ function UserPreviewPage() {
   const [data, setData] = useState(null);
   const navigate = useNavigate();
   let { id } = useParams();
-  console.log("Idey...", id);
   useEffect(() => {
-    fetch(`http://localhost:8000/dashboard/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/dashboard/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -16,7 +16,7 @@ function CommentModal({ id, open, onClose }) {
   const [comment, setComment] = useState("");
   
   useEffect(()=> {
-    fetch(`http://localhost:8000/post/comments/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/post/comments/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,7 @@ function CommentModal({ id, open, onClose }) {
   },[comment])
 
   const Submit = () => {
-    fetch(`http://localhost:8000/post/add_comment/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/post/add_comment/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

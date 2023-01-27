@@ -14,15 +14,13 @@ const Posts = () => {
   const [loading, setLoading] = useState(false);
 
    //Fetching post data from database
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       const decodedToken = jwtDecode(token);
       const id = decodedToken.userId;
       setLoading(true);
-      console.log("token enkilum undo",typeof(token),token)
-      fetch(`http://localhost:8000/post/timeline_posts/${id}`, {
+      fetch(`${process.env.REACT_APP_BACKEND}/post/timeline_posts/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +30,6 @@ const Posts = () => {
         .then((data) => {
           dispatch(setTimelinePosts(data));
           setLoading(false);
-          console.log("Fetching Successfull");
         });
     }
   }, []);

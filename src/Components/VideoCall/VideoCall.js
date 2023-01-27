@@ -23,7 +23,7 @@ function VideoCall() {
 	const connectionRef= useRef()
 
 	useEffect(() => {
-		socket.current = io('ws://localhost:8008');
+		socket.current = io(`${process.env.REACT_APP_SOCKET}`);
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
 			setStream(stream)
 				myVideo.current.srcObject = stream
@@ -34,7 +34,6 @@ function VideoCall() {
 		})
 
 		socket.current.on("callUser", (data) => {
-			console.log("call vannoda monuse..")
 			setReceivingCall(true)
 			setCaller(data.from)
 			setName(data.name)
@@ -70,7 +69,6 @@ function VideoCall() {
 
 	// Call a user
 	const callUser = (id) => {
-		console.log("Call vanno...");
 		const peer = new Peer({
 		  initiator: true,
 		  trickle: false,

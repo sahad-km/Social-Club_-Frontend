@@ -13,11 +13,9 @@ function SearchBar() {
   const { allUsers } = useSelector((state) => state.allUser);
 
   const handleFilter = (event) => {
-    console.log("is typing happen")
   const searchWord = event.target.value;
   setWordEntered(searchWord);
   const newFilter = allUsers.filter((value) => {
-    console.log(allUsers,"vallathum undo")
     return value.userName.toLowerCase().includes(searchWord.toLowerCase());
   });
 

@@ -7,15 +7,28 @@ import { GrSend } from "react-icons/gr";
 import InputEmoji from "react-input-emoji";
 import { BsCameraVideoFill} from "react-icons/bs";
 import { BiVideoPlus,BiImageAdd } from "react-icons/bi";
-import { MdAttachFile, MdUploadFile } from "react-icons/md";
+import { MdAttachFile} from "react-icons/md";
 import { format } from "timeago.js";
 import Menu from "../../Home/Menus/Menu";
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
+import DotSpinner from "../../DotSpinner/DotSpinner";
+import { toast } from "react-toastify";
+
+const toastConfig = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 
 function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
   const isDarkMode = useSelector((state) => state.isDarkMode);
   const token = useSelector((state) => state.token.token);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -30,13 +43,13 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
 
   //Handle voice messages
   const addAudioElement = (blob) => {
-    console.log("Vallathum nadakkuvo",blob)
+    setLoading(true);
     try {
       const data = new FormData();
       data.append("file", blob);
-      data.append("upload_preset", "wj1iznqd");
-      data.append("cloud_name", "dupfwiwnp");
-      fetch(" https://api.cloudinary.com/v1_1/dupfwiwnp/video/upload", {
+      data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+      data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_UPLOAD_NAME);
+      fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_UPLOAD_NAME}/video/upload`, {
         method: "post",
         body: data,
       })
@@ -52,7 +65,7 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
           const receiverId = chat.members.find((id) => id !== currentUser);
           setSendMessage({ ...message, receiverId });
           //Sending to the database
-          fetch("http://localhost:8000/chat/add_message", {
+          fetch(`${process.env.REACT_APP_BACKEND}/chat/add_message`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -68,13 +81,14 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
             .then((response) => response.json())
             .then((json) => {
               setMessages([...messages, json.result]);
+              setLoading(false);
               // const url = URL.createObjectURL(blob);
               // const receiverId = chat.members.find((id) => id !== currentUser);
               // setSendVoice({ ...url, receiverId });
             });
         });
     } catch (err) {
-      console.log(err);
+      toast.error("Voice can't send, Try again later", toastConfig)
     }
   };
 
@@ -87,7 +101,7 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
     const userId = chat?.members?.find((id) => id !== currentUser);
     const getUserData = async () => {
       try {
-        fetch(`http://localhost:8000/dashboard/${userId}`, {
+        fetch(`${process.env.REACT_APP_BACKEND}/dashboard/${userId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -99,7 +113,7 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
             setUserData(json.details);
           });
       } catch (error) {
-        console.log(error);
+        toast.error("Problem with server", toastConfig)
       }
     };
     if (chat !== null) getUserData();
@@ -109,7 +123,7 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        fetch(`http://localhost:8000/chat/message/${chat._id}`, {
+        fetch(`${process.env.REACT_APP_BACKEND}/chat/message/${chat._id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -130,13 +144,20 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
 
   //Sending Media through messages
   const UploadFile = async () => {
+    if(videoFile === null && image === null){
+      return;
+    }
+    setLoading(true);
     const type = !image ? "video" : "image";
     const file = !image ? videoFile : image;
-    const cloudinaryUrl = `https://api.cloudinary.com/v1_1/dupfwiwnp/${type}/upload`;
+    if(file.size > 7000000){
+      toast.info("🥵 Seems like big a file, take some time", toastConfig)
+    }
+    const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_UPLOAD_NAME}/${type}/upload`;
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", "wj1iznqd");
-    data.append("cloud_name", "dupfwiwnp");
+    data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+    data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_UPLOAD_NAME);
     try {
         const res = await fetch(cloudinaryUrl, {
             method: "post",
@@ -154,7 +175,7 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
         const receiverId = chat.members.find((id) => id !== currentUser);
         setSendMessage({ ...message, receiverId });
         //Sending to the database
-          fetch("http://localhost:8000/chat/add_message", {
+          fetch(`${process.env.REACT_APP_BACKEND}/chat/add_message`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -170,24 +191,26 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
             .then((response) => response.json())
             .then((json) => {
               setMessages([...messages, json.result]);
+              setLoading(false)
               setVideoFile(null);
               setImage(null);
             });
     } catch (err) {
-        console.log(err);
+        toast.error("Oops, uploading failed", toastConfig);
     }
 };
 
   // Sending the message to the backend
   const sendMessage = (e) => {
-    console.log("firstey...");
+    if(newMessage.trim() === ''){
+      return;
+    }
     const message = {
       senderId: currentUser,
       text: newMessage,
       chatId: chat._id,
       type: "text",
     };
-    console.log(message, "Hi da..");
 
     //Sending to the socket server
     const receiverId = chat.members.find((id) => id !== currentUser);
@@ -195,7 +218,7 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
 
     //Sending to the database
     try {
-      fetch("http://localhost:8000/chat/add_message", {
+      fetch(`${process.env.REACT_APP_BACKEND}/chat/add_message`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -232,7 +255,6 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
 
   // Call a User
   const callFriend = () => {
-    console.log("call cheyyada mone")
     const id = chat.members.find((id) => id !== currentUser);
     callUser(id);
   };
@@ -297,7 +319,6 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
                 <>
                   <div ref={scroll} key={id} className={message.senderId === currentUser ? "own" : "message"}>
                   {message.type ==="text" && <span>{message.text ? message.text : ""}</span>}
-                  {/* <span>{message.text ? message.text : ""}</span> */}
                   {message.type ==="voice" && <audio src={message.text} controls></audio>}
                   {message.type ==="image" && <img src={message.text}></img>}
                   {message.type ==="video" && <video src={message.text} controls></video>}
@@ -331,7 +352,7 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
                 recorderControls={recorderControls}
               />
 
-              <GrSend style={{marginLeft:'1em'}} onClick={() => newMessage !== '' ? sendMessage() : UploadFile() } className="sendIcon"/>
+             {loading ? <DotSpinner/> : <GrSend style={{marginLeft:'1em'}} onClick={() => newMessage !== '' ? sendMessage() : UploadFile() } className="sendIcon"/> }
               <input
                 type="file"
                 name=""

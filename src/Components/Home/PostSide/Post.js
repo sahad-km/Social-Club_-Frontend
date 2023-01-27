@@ -19,6 +19,18 @@ import {
   setComment,
 } from "../../../redux/actions/postAction";
 import "./Post.css";
+import { toast } from "react-toastify";
+
+const toastConfig = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 
 function Post({ data }) {
   const user = useSelector((state) => state.user.user);
@@ -38,7 +50,7 @@ function Post({ data }) {
 
   //Fetching user Details
   useEffect(() => {
-    fetch(`http://localhost:8000/dashboard/${data.userId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/dashboard/${data.userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -53,8 +65,7 @@ function Post({ data }) {
 
   //Get all Comments
   const loadComments = (id) => {
-    console.log("HI dadadadaddadadad");
-    fetch(`http://localhost:8000/post/comments/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/post/comments/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -63,10 +74,8 @@ function Post({ data }) {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log("jsoneyy...", json.comments);
         // setComments(json.comments)
         dispatch(setComment(json.comments));
-        // console.log("Hehehehe..",post)
       });
   };
 
@@ -74,7 +83,7 @@ function Post({ data }) {
   const handleLike = (e, postId) => {
     e.preventDefault();
     if (data && user) {
-      fetch(`http://localhost:8000/post/like_unlike/${postId}`, {
+      fetch(`${process.env.REACT_APP_BACKEND}/post/like_unlike/${postId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -94,7 +103,7 @@ function Post({ data }) {
 
   //Delete a post
   const deletingPost = (id) => {
-    fetch(`http://localhost:8000/post/delete/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/post/delete/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -103,7 +112,7 @@ function Post({ data }) {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log("deleted");
+        toast.success("Post deleted", toastConfig);
         dispatch(deletePost(id));
         setShowModal(false);
       });
@@ -111,7 +120,7 @@ function Post({ data }) {
 
   //Editing Post
   const editingPost = (id) => {
-    fetch(`http://localhost:8000/post/update_post/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND}/post/update_post/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -123,7 +132,7 @@ function Post({ data }) {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log("Changes Saved...");
+        toast.success("Post edited successfully", toastConfig)
         dispatch(editPost({ id, caption }));
         setEditModal(false);
       });
@@ -161,7 +170,6 @@ function Post({ data }) {
         <BiComment
           onClick={(e) => {
             e.preventDefault();
-            console.log("chu chu chu", data._id);
             loadComments(data._id);
             setIsOpen(true);
           }}
@@ -174,9 +182,9 @@ function Post({ data }) {
         />
         <RWebShare
           data={{
-            text: "Share the post",
+            text: "Share Post",
             url: `https://foodiefrontier.onrender.com/SinglePost/`,
-            title: "Share Post",
+            title: "Share Post with your friends",
           }}
           onClick={() => console.log("shared successfully!")}
         >

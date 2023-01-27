@@ -13,7 +13,7 @@ function UserPreview({data}) {
   const addToChat = (e)=>{
     e.preventDefault();
     try {
-      fetch('http://localhost:8000/chat', {
+      fetch(`${process.env.REACT_APP_BACKEND}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +26,6 @@ function UserPreview({data}) {
       })
         .then((response) => response.json())
         .then((json) => {
-          console.log(json.result)
           navigate("/chat");
         });
     } catch (error) {

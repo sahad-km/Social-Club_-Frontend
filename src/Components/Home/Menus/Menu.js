@@ -32,7 +32,9 @@ function Menu() {
   return (
         <div className='row ml-2 p-4'>
             <div className="col-3 col-md-3">
+              <Link to={'/'}>
             <MdHome style={icon_style} />
+            </Link>
           </div>
           <div className="col-3 col-md-3">
             <MdSettings style={icon_style} onClick={toggleMenu} />

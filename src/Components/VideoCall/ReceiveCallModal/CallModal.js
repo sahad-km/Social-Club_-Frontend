@@ -25,7 +25,6 @@ const Register_style = {
 
 
 function CallModal({ open, onClose, id, name, receivingCall, callAccepted }) {
-    console.log('id undo atho',id);
     const navigate = useNavigate();
     if (!open) return null;
     return (

@@ -10,6 +10,18 @@ import Loader from "../../Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Share.css";
+import { toast } from "react-toastify";
+
+const toastConfig = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 
 function Share() {
   const isDarkMode = useSelector((state) => state.isDarkMode);
@@ -23,7 +35,6 @@ function Share() {
   const [loading,setLoading] = useState(false);
   const imageInput = useRef(null);
   const videoInput = useRef(null);
-  const dateInput = useRef(null);
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.token.token);
   
@@ -34,12 +45,12 @@ function Share() {
   const uploadPost = async () => {
     const type = !image ? "video" : "image";
     const file = !image ? videoFile : image;
-    const cloudinaryUrl = `https://api.cloudinary.com/v1_1/dupfwiwnp/${type}/upload`;
+    const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_UPLOAD_NAME}/${type}/upload`;
     setLoading(true);
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", "wj1iznqd");
-    data.append("cloud_name", "dupfwiwnp");
+    data.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+    data.append("cloud_name", process.env.REACT_APP_CLOUDINARY_UPLOAD_NAME);
     try {
         const res = await fetch(cloudinaryUrl, {
             method: "post",
@@ -47,10 +58,9 @@ function Share() {
         });
         const json = await res.json();
         const id = user._id;
-        console.log("userId:", user._id);
         const url = json.url;
         if (selectedDate === null) {
-            const postRes = await fetch(`http://localhost:8000/post/upload_image/${id}`, {
+            const postRes = await fetch(`${process.env.REACT_APP_BACKEND}/post/upload_image/${id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -66,7 +76,7 @@ function Share() {
             dispatch(setUpload(postJson.post));
             resetShare();
             setLoading(false);
-            console.log("Uploaded successfully");
+            toast.success("Post shared successfully", toastConfig);
         } else {
             scheduledPosts(url);
         }
@@ -79,7 +89,7 @@ function Share() {
   //Handling scheduled posts
   const scheduledPosts =(url)=>{
     const id = user._id;
-    fetch(`http://localhost:8000/post/scheduled_post/${id}` ,{
+    fetch(`${process.env.REACT_APP_BACKEND}/post/scheduled_post/${id}` ,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -96,7 +106,7 @@ function Share() {
     .then(data => {
       resetShare();
       setLoading(false);
-      console.log("Uploaded successfully")
+      toast.success("Post shared successfully", toastConfig);
     })
   }
 

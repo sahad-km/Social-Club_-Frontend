@@ -62,7 +62,6 @@ export const chatUserReducer = (state = {}, { type, payload }) => {
 };
 
 export const themeUserReducer = (state = false, { type}) => {
-  console.log(type)
   switch (type) {
     case ActionTypes.SET_THEME_ACTION:
       return !state;
@@ -71,16 +70,7 @@ export const themeUserReducer = (state = false, { type}) => {
   }
 };
 
-// export const userTokenReducer = (state = {}, { type, payload }) => {
-//   console.log("type etha mone..",type)
-//   switch (type) {
-//     case ActionTypes.SET_TOKEN:
-//       return { ...state, token: [...state.token, payload]};
-//   }
-// }
-
 export const userTokenReducer = (state = {}, { type, payload }) => {
-  console.log(type,payload);
   switch (type) {
     case ActionTypes.SET_TOKEN:
       return { ...state, token: payload};
