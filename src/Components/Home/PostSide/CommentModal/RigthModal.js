@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect,useRef } from 'react'
 import Logo from '../../../../Social Club Logo.png'
+import altProfile from '../../../../Img/man-157699.png'
 import { format } from "timeago.js";
 import { useSelector } from 'react-redux';
 import './RightModal.css'
@@ -16,7 +17,7 @@ function RigthModal({data}) {
     <div ref={ref} className="commentCard">
       <div>
         <img
-          src={data.user[0].profilePicture}
+          src={data.user[0].profilePicture ? data.user[0].profilePicture : altProfile }
           alt="profile"
           className="commentsBy"
         />
