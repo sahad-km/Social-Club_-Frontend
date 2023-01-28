@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import axios from 'axios';
 import "../MyModal.css";
 import Logo from '../../../../../../Img/man-157699.png'
 import { useDispatch, useSelector } from "react-redux";

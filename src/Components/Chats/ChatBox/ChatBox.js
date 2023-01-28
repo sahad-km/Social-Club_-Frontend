@@ -82,9 +82,6 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
             .then((json) => {
               setMessages([...messages, json.result]);
               setLoading(false);
-              // const url = URL.createObjectURL(blob);
-              // const receiverId = chat.members.find((id) => id !== currentUser);
-              // setSendVoice({ ...url, receiverId });
             });
         });
     } catch (err) {
@@ -259,12 +256,6 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
     callUser(id);
   };
 
-  // const callFriend = (e,id) => {
-  //   e.preventDefault();
-  //   navigate(`/video_call/${id}`) 
-  // }
-
-
   return (
     <div className="col-md-9">
       <div className="row" style={{marginBottom:'2em'}} >
@@ -302,7 +293,6 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
                 </div>
                 <BsCameraVideoFill
                   className="videoCall_icon"
-                  // onClick={(e)=>{callFriend(e,userData._id)}}
                   onClick={callFriend}
                 />
               </div>

@@ -74,7 +74,6 @@ function Post({ data }) {
     })
       .then((response) => response.json())
       .then((json) => {
-        // setComments(json.comments)
         dispatch(setComment(json.comments));
       });
   };
@@ -166,7 +165,6 @@ function Post({ data }) {
             }}
           />
         )}
-        {/* <Link to={`/${data._id}`}> */}
         <BiComment
           onClick={(e) => {
             e.preventDefault();
@@ -174,7 +172,6 @@ function Post({ data }) {
             setIsOpen(true);
           }}
         />
-        {/* </Link> */}
         <CommentModal
           id={data._id}
           open={isOpen}
@@ -183,7 +180,7 @@ function Post({ data }) {
         <RWebShare
           data={{
             text: "Share Post",
-            url: `https://foodiefrontier.onrender.com/SinglePost/`,
+            url: `https://social-club.onrender.com/single_post/${data._id}`,
             title: "Share Post with your friends",
           }}
           onClick={() => console.log("shared successfully!")}
