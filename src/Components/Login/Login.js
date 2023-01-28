@@ -57,7 +57,7 @@ function Login() {
       dispatch(setUser(data.details));
       navigate('/');
   }else if(data.status === 'wrong'){
-    toast.error("Incorrected Email or password", toastConfig)
+    toast.error("Invalid Email or password", toastConfig);
   }else{
     toast.error("No account with this Email", toastConfig);
   }
