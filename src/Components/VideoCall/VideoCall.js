@@ -240,8 +240,8 @@ function Chat() {
               className={chat.members.includes(idToCall) ? "selected" : ""}
               key={id}
               onClick={() => {
-                const otherMember = chat.members.filter(member => member !== user._id)[0];
-                setIdToCall(otherMember);
+                const otherMember = chat.members.filter(member => member !== user._id);
+                setIdToCall(otherMember[0]);
               }}
             >
               <FriendSlip
@@ -255,8 +255,6 @@ function Chat() {
       </div>}
       </div>
 
-
-      
         <Modal show={showModal} onHide={() => setShowModal(false)}>
         <p style={{margin:'20px'}}>{name} is calling...</p>
         <div className="caller">
