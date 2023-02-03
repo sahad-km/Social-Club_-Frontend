@@ -15,10 +15,10 @@ import SinglePostPage from './Pages/SinglePostPage';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 function App() {
   const isDarkMode = useSelector((state) => state.isDarkMode);
   const { user } = useSelector((state) => state.user);
+ 
   return (
     <div className={isDarkMode ? 'dark-mode container-fluid ' : 'light-mode container-fluid '}>
      <BrowserRouter>

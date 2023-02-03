@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"; 
 import "./ChatBox.css";
 import altProfile from "../../../Img/man-157699.png";
@@ -13,6 +13,7 @@ import Menu from "../../Home/Menus/Menu";
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
 import DotSpinner from "../../DotSpinner/DotSpinner";
 import { toast } from "react-toastify";
+import { logout } from "../../../redux/actions/userAction";
 
 const toastConfig = {
   position: "top-center",
@@ -39,6 +40,8 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
   const videoRef = useRef();
   const scroll = useRef();
   const recorderControls = useAudioRecorder();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   //Handle voice messages
@@ -201,6 +204,9 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
   const sendMessage = (e) => {
     if(newMessage.trim() === ''){
       return;
+    }
+    if (!localStorage.getItem('token')) {
+      dispatch(logout())
     }
     const message = {
       senderId: currentUser,

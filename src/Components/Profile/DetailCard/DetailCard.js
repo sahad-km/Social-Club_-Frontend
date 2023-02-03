@@ -7,6 +7,18 @@ import { FaPencilAlt } from "react-icons/fa";
 import { logout } from '../../../redux/actions/userAction';
 import EditModal from './EditModal/EditModal';
 import Loader from '../../Loader/Loader';
+import { toast } from 'react-toastify';
+
+const toastConfig = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 
 function DetailCard() {
   const { user } = useSelector((state) => state.user);
@@ -16,8 +28,11 @@ function DetailCard() {
   const dispatch = useDispatch();
 
   const logoutBtn =()=>{
+    toast.error("Logged out successfully",toastConfig);
     navigate('/login');
+    localStorage.removeItem('token');
     dispatch(logout());
+
   }
 
 

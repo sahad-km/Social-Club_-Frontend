@@ -1,16 +1,30 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../Components/Home/SearchBar/SearchBar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FriendSlip from "../Components/Chats/Friends/FriendSlip";
 import ChatBox from "../Components/Chats/ChatBox/ChatBox";
+import { logout } from "../redux/actions/userAction";
 import {io} from 'socket.io-client'
+import { toast } from "react-toastify";
+
+const toastConfig = {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+};
 
 function Chat() {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.token.token);
   const isDarkMode = useSelector((state) => state.isDarkMode);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const socket = useRef();
   const [onlineUsers,setOnlineUsers] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
@@ -20,10 +34,13 @@ function Chat() {
 
   //Check user logout or not
   useEffect(()=>{
+    const token = localStorage.getItem('token');
     if(!token){
-      navigate('/login')
+      dispatch(logout())
+      toast.error('Session expired, Please login to continue',toastConfig)
+      navigate('/login');
     }
-  },[token])
+  },[])
 
    //Get chats in the chat section
    useEffect(()=>{
