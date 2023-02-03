@@ -237,10 +237,11 @@ function Chat() {
         {chats.map((chat, id) => {
           return (
             <div
-              className={chat.members[1] === idToCall ? "selected" : ""}
+              className={chat.members.includes(idToCall) ? "selected" : ""}
               key={id}
               onClick={() => {
-                setIdToCall(chat.members[1]);
+                const otherMember = chat.members.filter(member => member !== user._id)[0];
+                setIdToCall(otherMember);
               }}
             >
               <FriendSlip
