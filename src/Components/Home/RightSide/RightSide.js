@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MdExplore, MdSettings, MdHome } from "react-icons/md";
+import { MdPhone, MdSettings, MdHome } from "react-icons/md";
 import { IoChatbubblesSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "../../../redux/actions/themeAction";
@@ -74,8 +74,8 @@ function RightSide() {
             )}
           </div>
           <div className="col-3 col-md-3">
-            <Link to={"/explore"}>
-              <MdExplore style={icon_style} />
+            <Link to={"/video_call"}>
+              <MdPhone style={icon_style} />
             </Link>
           </div>
           <div className="col-3 col-md-3">

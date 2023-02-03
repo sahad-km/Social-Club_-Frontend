@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { userReducer,postReducer,allUsersReducer,commentReducer, chatUserReducer, themeUserReducer, userTokenReducer} from "./userReducer";
+import { userReducer,postReducer,allUsersReducer,commentReducer, chatUserReducer, themeUserReducer, userTokenReducer, pageNoReducer} from "./userReducer";
 
 const reducers = combineReducers({
   user: userReducer,
@@ -8,6 +8,7 @@ const reducers = combineReducers({
   comment: commentReducer,
   chatUser: chatUserReducer,
   isDarkMode: themeUserReducer,
-  token: userTokenReducer
+  token: userTokenReducer,
+  page: pageNoReducer
 });
 export default reducers;

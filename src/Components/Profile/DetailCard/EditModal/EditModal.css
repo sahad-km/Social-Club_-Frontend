@@ -17,3 +17,12 @@
     margin-top: 2rem;
     align-self: flex-start;
 }
+
+.dark-mode-inner{
+    background-color: #1a1919;
+    transition: background-color 0.25s ease-in-out;
+}
+.light-mode-inner{
+    background-color: white;
+    transition: background-color 0.25s ease-in-out;
+}

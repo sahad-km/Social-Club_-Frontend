@@ -6,6 +6,7 @@ import ForgotModal from './ForgotModal/ForgotModal';
 import { setToken, setUser} from '../../redux/actions/userAction';
 import './Login.css'
 import { toast } from "react-toastify";
+import DotSpinner from '../DotSpinner/DotSpinner'
 
 const toastConfig = {
   position: "top-center",
@@ -21,6 +22,7 @@ const toastConfig = {
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading,setLoading] = useState(false);
   const [isOpen,setIsOpen] = useState(false)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,6 +41,7 @@ function Login() {
         toast.error("Enter password", toastConfig);
         return;
     }
+    setLoading(true);
     const response = await fetch(`${process.env.REACT_APP_BACKEND}/login`, {
       method: "POST",
       headers: {
@@ -51,14 +54,17 @@ function Login() {
     });
     const data = await response.json();
     if(data.user){
+      setLoading(false);
       toast.success("Successfully Logged In", toastConfig)
       localStorage.setItem('token',data.user);
       dispatch(setToken(data.user));
       dispatch(setUser(data.details));
       navigate('/');
   }else if(data.status === 'wrong'){
+    setLoading(false);
     toast.error("Invalid Email or password", toastConfig);
   }else{
+    setLoading(false);
     toast.error("No account with this Email", toastConfig);
   }
   }
@@ -95,7 +101,7 @@ function Login() {
   </div>
   <p onClick={forgotPassword} className='forgotPass'>Forgotten Password?</p>
   <div className='d-flex justify-content-center'>
-  <button style={{width:'200px'}} onClick={loginUser}  className="button logout-button">Login</button>
+  <button style={{width:'200px'}} onClick={loginUser}  className="button logout-button">{loading? <DotSpinner/> : 'Login'}</button>
   </div>
 </form>
 <ForgotModal open={isOpen} onClose={()=> setIsOpen(false)} />

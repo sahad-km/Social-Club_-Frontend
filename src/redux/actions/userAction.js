@@ -35,3 +35,9 @@ export const setToken = (data) => {
   }
 }
 
+export const logout = () => {
+  return {
+    type: ActionTypes.LOGOUT
+  }
+}
+

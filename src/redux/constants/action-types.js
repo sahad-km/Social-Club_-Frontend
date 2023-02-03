@@ -11,5 +11,7 @@ export const ActionTypes = {
     EDIT_POST: "EDIT_POST",
     SET_CHAT_USER: "SET_CHAT_USER",
     SET_THEME_ACTION: "SET_THEME_ACTION",
-    SET_TOKEN: "SET_TOKEN"
+    SET_TOKEN: "SET_TOKEN",
+    SET_PAGE: "SET_PAGE",
+    LOGOUT:"LOGOUT"
   };    

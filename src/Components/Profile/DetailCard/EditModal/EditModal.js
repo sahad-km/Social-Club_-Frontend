@@ -23,7 +23,6 @@ const Register_style = {
   left: "50%",
   width: "40%",
   transform: "translate(-50%,-50%)",
-  backgroundColor: "#FFF",
   padding: "20px",
   zIndex: 1000,
   borderRadius: "0.7em",
@@ -42,6 +41,7 @@ const overlay_style = {
 function EditModal({ open, onClose }) {
   const { user } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token.token);
+  const isDarkMode = useSelector((state) => state.isDarkMode);
   const dispatch = useDispatch();
   const [firstName,setFirstname] = useState( user.firstName ? user.userName : '');
   const [lastName,setLastname] = useState( user.lastName ? user.lastName : '');
@@ -117,7 +117,7 @@ function EditModal({ open, onClose }) {
   return (
     <>
       <div style={overlay_style} />
-      <div style={Register_style}>
+      <div style={Register_style} className={`${isDarkMode ? 'dark-mode-inner' : 'light-mode-inner'}`}>
         <AiOutlineClose className="float-right" onClick={onClose} />
         <h3>Your Info</h3>
 

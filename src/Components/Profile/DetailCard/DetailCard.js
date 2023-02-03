@@ -1,39 +1,27 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import jwtDecode from 'jwt-decode';
-import { setUser } from '../../../redux/actions/userAction';
+import React, { Fragment, useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import './DetailCard.css'
 import SearchBar from '../../Home/SearchBar/SearchBar';
 import { FaPencilAlt } from "react-icons/fa";
-import PeopleKnow from '../../Home/LeftSide/PeopleList/PeopleKnow';
+import { logout } from '../../../redux/actions/userAction';
 import EditModal from './EditModal/EditModal';
+import Loader from '../../Loader/Loader';
 
 function DetailCard() {
   const { user } = useSelector((state) => state.user);
   const isDarkMode = useSelector((state) => state.isDarkMode);
   const [isOpen,setIsOpen] = useState(false)
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      const id = decodedToken.userId;
-      fetch(`${process.env.REACT_APP_BACKEND}/dashboard/${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Custom-Header": `${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          dispatch(setUser(json.details));
-        });
-    }
-  }, [dispatch]);
+  const logoutBtn =()=>{
+    navigate('/login');
+    dispatch(logout());
+  }
 
-  if(!user) return <h4>Loading...</h4>
+
+  if(!user) return <Loader/>
   return (
     <Fragment>
     <div className='col-md-3'>
@@ -76,7 +64,7 @@ function DetailCard() {
         </span>
         <span className="info">{user.country}</span>
       </div>
-      <button className="button logout-button">Logout</button>
+      <button className="button logout-button" onClick={logoutBtn} >Logout</button>
     </div>
     </div>
      </Fragment>

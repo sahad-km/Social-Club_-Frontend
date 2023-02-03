@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../../Social Club Logo.png'
+import Logo from '../../../Img/No-Cover.png'
 import altProfile from '../../../Img/man-157699.png'
 import { useSelector } from 'react-redux'
 import './Center.css'
@@ -13,10 +13,10 @@ if(!data) return <Loader/>
     <div className='col-md-6 mainDiv'>
     <div className={`ProfileCard ${isDarkMode ? 'dark-mode-inner' : 'light-mode-inner'}`}>
     <div className="ProfileImages">
-      { data.coverPicture ? <img style={{backgroundColor:'orange',height:'10em'}} src={data.coverPicture} alt={Logo} /> 
-     : <img style={{backgroundColor:'orange',height:'10em'}} src={Logo} alt="CoverImage" /> }
-     { data.profilePicture ? <img style={{backgroundColor:'black',height:'6em'}} src={data.profilePicture} alt={Logo} /> 
-     : <img style={{backgroundColor:'orange',height:'10em'}} src={altProfile} alt={altProfile} /> }
+      { data.coverPicture ? <img style={{height:'6em'}} src={data.coverPicture} alt={Logo} /> 
+     : <img style={{height:'10em'}} src={Logo} alt="CoverImage" /> }
+     { data.profilePicture ? <img style={{height:'6em'}} src={data.profilePicture} alt={Logo} />
+     : <img style={{height:'10em'}} src={altProfile} alt={altProfile} /> }
     </div>
     <div className="ProfileName">
       <span>{data.firstName} {data.lastName}</span>

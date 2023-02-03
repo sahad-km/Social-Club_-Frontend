@@ -6,24 +6,7 @@ import { setUser } from "../../../redux/actions/userAction";
 
 function TrendingPeople() {
   const dispatch = useDispatch();
-  // useEffect(()=>{
-  //   const token = localStorage.getItem('token');
-  //   if(token){
-  //     const decodedToken = jwtDecode(token);
-  //    const id = decodedToken.userId;
-  //    fetchDetails(id);
-  //   }
-  //   async function fetchDetails(id){
-  //     const response = await fetch(`${process.env.REACT_APP_BACKEND}/dashboard/${id}`,{
-  //       method: 'GET',
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     const data = await response.json();
-  //     dispatch(setUser(data.details));
-  //   }
-  // })
+  
   return (
     <Fragment>
       <div className="TrendCard">

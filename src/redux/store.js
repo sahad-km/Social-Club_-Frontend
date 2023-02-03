@@ -8,6 +8,7 @@ const composeEnhancers = window.REDUX_DEVTOOLS_EXTENTION_COMPOSE || compose;
 const persistConfig = {
   key: "user",
   storage,
+  blacklist: ['post']
 };
 const persistedReducer = persistReducer(
   persistConfig,

@@ -7,6 +7,13 @@ export const setTimelinePosts = (data) => {
   }
 }
 
+export const setPage = (data) => {
+  return {
+    type: ActionTypes.SET_PAGE,
+    payload: data
+  }
+}
+
 export const setUpload = (data) => {
   return {
     type : ActionTypes.UPLOAD_POST,

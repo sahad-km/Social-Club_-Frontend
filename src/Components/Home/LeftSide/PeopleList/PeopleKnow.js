@@ -75,8 +75,8 @@ function PeopleKnow() {
           Show More
         </span>
         <Modal show={showModal} onHide={() => setShowModal(false)}>
-          <div style={{padding:'12px',borderRadius:'0.7em'}} >
-        <h3 style={{ fontSize: "18px" }}>People you may know</h3>
+          <div style={{padding:'12px',borderRadius:'0.7em'}} className={`${isDarkMode ? 'dark-mode-inner' : 'light-mode-inner'}`} >
+        <h3 style={{ fontSize: "18px", color:'white'}}>People you may know</h3>
           {allUsers
             .filter((_, i) => i !== 0)
             .map((user, id) => {

@@ -30,7 +30,7 @@ function App() {
           <Route path="/signup" element={user ? <Navigate to="/" /> : <SignupPage />} />
           <Route path="/user/:id" element={user ? <UserPreview /> : <Navigate to="/login" />} />
           <Route path="/explore" element={user ? <ExplorePage /> : <Navigate to="/login" />} />
-          <Route path="/video_call/:id" element={user ? <VideoCallPage /> : <Navigate to="/login" />} />
+          <Route path="/video_call" element={user ? <VideoCallPage /> : <Navigate to="/login" />} />
           <Route path="/pageNotFound" element={user ? <NotFoundPage/> : <Navigate to="/login"/>} />
           <Route path="/single_post/:id" element={<SinglePostPage/>} />
           <Route path="*" element={<NotFoundPage/>}/>

@@ -1,43 +1,44 @@
 .videoContainer {
-	display: flex;
-  	align-items: center;
-  	justify-content: center;
-}
-
-.callbtn{
-	margin-top: 2em;
-	width: 100px;
-	height: 40px;
-	color: white;
 	border-radius: 0.7em;
-	background-color: rgb(255, 0, 33);
+	width: 400px;
 }
 
-.callbtn:hover{
-	background-color: rgb(231, 69, 69);
-}
-
-.myId {
-	margin-right: 5rem;
-	border-radius: 5px;
-	background: #c9d6ff; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to right, #e2e2e2, #c9d6ff); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(
-		to right,
-		#e2e2e2,
-		#c9d6ff
-	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-	padding: 2rem;
-	display: grid;
+.row-container{
+	display: flex;
+	align-items: center;
 	justify-content: center;
-	align-content: center;
 }
 
-.call-button {
-	text-align: center;
-	margin-top: 2rem;
+.video-div{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+
+.call-btn{
+	color: white;
+	padding: 10px;
+	border-radius: 50%;
+	background-color: rgb(12, 239, 23);
+}
+
+.call-btn:hover{
+	background-color: rgb(115, 234, 121);
+}
+
+.end-btn{
+	margin: 10px;
+	color: white;
+	padding: 10px;
+	border-radius: 50%;
+	background-color: rgb(235, 10, 10);
+	border: none;
+}
+
+.end-btn:hover{
+	background-color: rgb(246, 104, 65);
+}
+
 
 .video-container {
 	display: grid;
@@ -48,7 +49,34 @@
 	margin-left: 10rem;
 }
 
-.caller {
-	text-align: center;
-	color: #fff;
+.selected {
+	background-color: #ddd;
+}
+
+.mute-btn{
+	margin: 10px;
+	color: white;
+	padding: 10px;
+	border-radius: 50%;
+	background-color: rgb(15, 63, 239);
+	border: none;
+}
+
+.caller{
+	padding: 1em;
+	display: flex;
+	display: block;
+}
+
+.call-noti-btn{
+	margin: 10px;
+	color: white;
+	padding: 10px;
+	border-radius: 50%;
+	border: none;
+	float: right;
+}
+
+.call-noti-btn:hover{
+	opacity: 0.5;
 }
