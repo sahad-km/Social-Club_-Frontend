@@ -180,10 +180,10 @@ function Chat() {
   useEffect(()=>{
     socket.current.on("call-ended", () => {
       setCallEnded(true);
-      navigate('/');
       connectionRef.current.destroy();
       stream.getTracks().forEach((track) => track.stop());
-      toast.info("Call Ended",toastConfig)
+      toast.info("Call Ended",toastConfig);
+      navigate('/');
     })
   },[])
 
