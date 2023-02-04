@@ -1,3 +1,11 @@
 .navIcons:hover{
     cursor: pointer;
 }
+
+.link{
+    color: #007bff;
+}
+
+.link:hover{
+    color: #0056b3;
+}

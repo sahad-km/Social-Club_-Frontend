@@ -26,7 +26,7 @@ const toastConfig = {
   theme: "colored",
 };
 
-function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
+function ChatBox({chat,currentUser,setSendMessage,receiveMessage}) {
   const isDarkMode = useSelector((state) => state.isDarkMode);
   const token = useSelector((state) => state.token.token);
   const [loading, setLoading] = useState(false);
@@ -256,11 +256,6 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Call a User
-  const callFriend = () => {
-    const id = chat.members.find((id) => id !== currentUser);
-    callUser(id);
-  };
 
   return (
     <div className="col-md-9">
@@ -299,7 +294,7 @@ function ChatBox({chat,currentUser,setSendMessage,receiveMessage,callUser}) {
                 </div>
                 <BsCameraVideoFill
                   className="videoCall_icon"
-                  onClick={callFriend}
+                  onClick={()=>{navigate('/video_call')}}
                 />
               </div>
               <hr

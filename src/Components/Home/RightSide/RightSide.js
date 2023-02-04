@@ -8,7 +8,7 @@ import PeopleKnow from "../LeftSide/PeopleList/PeopleKnow";
 
 function RightSide() {
   const icon_style = {
-    fontSize: "1.5em",
+    fontSize: "1.5em"
   };
 
   const dark_mode = {
@@ -54,7 +54,7 @@ function RightSide() {
             </Link>
           </div>
           <div className="col-3 col-md-3">
-            <MdSettings style={icon_style} onClick={toggleMenu} />
+            <MdSettings className="link" style={icon_style} onClick={toggleMenu} />
             {showMenu && (
               <div className="dropdown-menu" style={isDarkMode ? dark_mode : light_mode}>
                 <div class="custom-control custom-switch">
